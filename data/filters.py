@@ -7,6 +7,8 @@ def remove_extra_links(t) -> str:
 def selfwork(t) -> str:
     if "САМОСТОЯТЕЛЬНАЯ РАБОТА" in t: 
         return ''
+    elif "Г Л А В Л Е Н И Е" in t or "Р А З Д Е Л " in t: 
+        return ''
     else: 
         return t
 
