@@ -1,13 +1,19 @@
 import fitz 
-from .filters import prepare
 
-class document():   
+class Document():   
     def __init__(self, path: str = "/") -> None : 
         self.path = path
         self.doc = fitz.open(path)
 
     def prepare_text(self, text) -> str: 
-        return prepare(text)
+        """"
+        Write there text preparetion process u need 
+
+        It have to look take 'text': str to input and return the output 'text': str
+
+        """
+
+        return text
 
     def __getitem__(self, idx) -> str: 
         try: 
@@ -40,3 +46,15 @@ class document():
         with open(save_path, 'w', encoding='utf-8') as f: 
             f.write(text)
             f.close()
+
+def document(doc_path, prep_fn) -> Document: 
+
+    class d(Document): 
+        def __init__(self, *args, **kwargs): 
+            super().__init__(*args, **kwargs)
+
+        def prepare_text(text): 
+            prepared_text:str = prep_fn(text)
+            return prepared_text
+
+    return d(doc_path, prep_fn)
