@@ -1,18 +1,32 @@
+import argparse
 from data.reader import document
-from config import DOC_PATH, DATA_SAVE_PATH
+from nn import train, TrainConfig
 
-
-
-def data_(document_path, document_save_path, preparation_fn): 
+def data_(document_path,  preparation_fn): 
     doc = document(document_path, preparation_fn)
 
-    save_path = document_save_path
-    doc.to_txt(save_path, progressbar=True)
+    return doc.read_all()
 
-    return doc, save_path
+def train_nn(text_data, config: TrainConfig): 
+    model = train(text_data, cfg = config)
+    return model 
 
-def run(): 
-    doc, path = data_()
+def run(doc_path: str, 
+        preparation_fn = None, 
+        config:TrainConfig = None): 
 
-if __name__ == "__main__": 
-    run() 
+    text_data = data_(doc_path, preparation_fn)
+
+    default_config = TrainConfig() if (config == None) else config
+
+    model = train_nn(text_data, default_config)
+    return model
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Process document and train neural network")
+    
+    parser.add_argument('--doc_path', type=str, required=True, help='Path to the document')
+
+    args = parser.parse_args()
+
+    run(args.doc_path)

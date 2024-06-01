@@ -17,10 +17,10 @@ class TrainConfig():
   # epochs, batch_size, precision, ...
   training_params = dict(
     output_dir=model_save_path,
-    num_train_epochs = 30,
+    num_train_epochs = 10,
     per_device_train_batch_size=1,
     save_steps=1000,
-    save_total_limit=10,
+    save_total_limit=1,
     learning_rate=1e-4,
     weight_decay=1e-3,
     fp16 = True,

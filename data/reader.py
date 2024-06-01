@@ -1,4 +1,5 @@
 import fitz 
+from typing import Callable
 
 class Document():   
     def __init__(self, path: str = "/") -> None : 
@@ -30,7 +31,7 @@ class Document():
     def __str__(self) -> str:
         return f"Document from {self.path}, first page [{self[0]}]"
     
-    def to_txt(self, save_path: str, progressbar =False):
+    def read_all(self, progressbar =False): 
 
         if progressbar == True: 
             from tqdm import tqdm
@@ -42,19 +43,26 @@ class Document():
             text = ""
             for i in range(self): 
                 text += self[i]
-        
+        return text
+
+    def to_txt(self, save_path: str, progressbar =False):
+        text = self.read_all( progressbar)
+
         with open(save_path, 'w', encoding='utf-8') as f: 
             f.write(text)
             f.close()
 
-def document(doc_path, prep_fn) -> Document: 
+def document(doc_path, prep_fn=None) -> Document: 
 
     class d(Document): 
         def __init__(self, *args, **kwargs): 
             super().__init__(*args, **kwargs)
 
-        def prepare_text(text): 
-            prepared_text:str = prep_fn(text)
-            return prepared_text
+        def prepare_text(self, text): 
 
-    return d(doc_path, prep_fn)
+            if type(prep_fn) == Callable: 
+                text:str = prep_fn(text)
+
+            return text
+
+    return d(doc_path)
