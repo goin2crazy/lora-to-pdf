@@ -1,7 +1,7 @@
-from train_config import TrainConfig
-from dataset import to_dataset
-from lora import to_lora
-from trainer import to_trainer
+from .train_config import TrainConfig
+from .dataset import to_dataset
+from .lora import to_lora
+from .trainer import to_trainer
 
 # Load model directly
 from transformers import AutoTokenizer, AutoModelForCausalLM
