@@ -1,5 +1,5 @@
 import argparse
-from data.reader import document
+from data import document
 from nn import train, TrainConfig
 
 def data_(document_path,  preparation_fn): 
