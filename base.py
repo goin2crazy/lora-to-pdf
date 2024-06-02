@@ -1,6 +1,6 @@
 import argparse
-from data import document
-from nn import train, TrainConfig
+from .data import document
+from .nn import train, TrainConfig
 
 def data_(document_path,  preparation_fn): 
     doc = document(document_path, preparation_fn)

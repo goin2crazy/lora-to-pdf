@@ -1,3 +1,3 @@
-from data import document
-from nn import * 
-from base import run 
+from .data import document
+from .nn import * 
+from .base import run 
