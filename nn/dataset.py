@@ -40,7 +40,7 @@ def to_dataset(large_text, tokenizer, chunk_size = 150, verbose = False):
         print(f"[chunks count {len(chunks)}]")
 
     return datasets.Dataset.from_dict({"text": chunks}).map(
-        lambda t: encode_text(t['text']), remove_columns=['text'])
+        lambda t: encode_text(t['text'], tokenizer), remove_columns=['text'])
     
 
 

@@ -11,11 +11,14 @@ def train_nn(text_data, config: TrainConfig):
     model = train(text_data, cfg = config)
     return model 
 
-def run(doc_path: str, 
+def run(doc_path, 
         preparation_fn = None, 
         config:TrainConfig = None): 
 
-    text_data = data_(doc_path, preparation_fn)
+    if type(doc_path) == list:
+        text_data = [data_(dp, preparation_fn) for dp in doc_path]
+    else: 
+        text_data = data_(doc_path, preparation_fn)
 
     default_config = TrainConfig() if (config == None) else config
 

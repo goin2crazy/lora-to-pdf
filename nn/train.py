@@ -23,7 +23,7 @@ def train(text_or_dataset, cfg: TrainConfig):
     else: 
         dataset = text_or_dataset
 
-    trainer = to_trainer(model = lora_model, 
+    trainer = to_trainer(lora_model = lora_model, 
                          tokenizer = tokenizer, 
                          train_dataset = dataset, 
                          **cfg.training_params)

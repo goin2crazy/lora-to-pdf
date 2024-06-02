@@ -31,7 +31,7 @@ class Document():
     def __str__(self) -> str:
         return f"Document from {self.path}, first page [{self[0]}]"
     
-    def read_all(self, progressbar =False): 
+    def read_all(self, progressbar =True): 
 
         if progressbar == True: 
             from tqdm import tqdm
