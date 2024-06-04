@@ -41,8 +41,8 @@ def run(doc_path,
         deleted EXTRA_WORDS chars: {extra_w_c}
         found RED_FLAGS {red_flag_c}
     """)
-    model = train_nn(text_data, default_config)
-    return model
+    # model = train_nn(text_data, default_config)
+    # return model
 
 
 def build_prep_fn(extra_w, red_flag_w):
@@ -50,6 +50,8 @@ def build_prep_fn(extra_w, red_flag_w):
     def fn(t:str): 
         global extra_w_c
         global red_flag_c
+
+        t_new:str = t
 
         for w in red_flag_w: 
             if w in t: 
