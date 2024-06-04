@@ -52,7 +52,7 @@ class Document():
             f.write(text)
             f.close()
 
-def document(doc_path, prep_fn=None) -> Document: 
+def document(doc_path, prep_fn:Callable=None) -> Document: 
 
     class d(Document): 
         def __init__(self, *args, **kwargs): 
@@ -60,8 +60,7 @@ def document(doc_path, prep_fn=None) -> Document:
 
         def prepare_text(self, text): 
 
-            if type(prep_fn) == Callable: 
-                text:str = prep_fn(text)
+            text:str = prep_fn(text)
 
             return text
 
