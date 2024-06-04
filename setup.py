@@ -14,7 +14,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'run=base:main'
+            'lora_to_pdf=base:main'
         ]
     }
 )
