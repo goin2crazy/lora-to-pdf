@@ -116,7 +116,7 @@ def main():
                                         red_flag_w = args.red_flag_words))
     elif args.mode.lower().strip() == 'preview': 
         for i in args.doc_path: 
-            doc = document(i)
+            doc = document(i, lambda t: t)
             print(f"""DOCUMENT EXAMPLES PAGE: 
                     {doc[args.page]}""")
 
