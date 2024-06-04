@@ -1,6 +1,6 @@
 import argparse
 from data import document
-from nn import train, TrainConfig
+from nn import train, TrainConfig, interface
 from typing import Callable
 
 extra_w_c = 0 
@@ -91,6 +91,16 @@ def main():
     parser.add_argument('--save_total_limit', type=int, default=1, help='Save total limit')
     parser.add_argument('--lr', type=float, default=1e-4, help='Learning rate')
     parser.add_argument('--wd', type=float, default=1e-3, help='Weight decay')
+    # Inference Params
+    parser.add_argument('--model_path', type=str, help='Path to the model for inference')
+    parser.add_argument('--max_new_tokens', type=int, default=50, help='Maximum number of new tokens to generate')
+    parser.add_argument('--min_new_tokens', type=int, default=10, help='Minimum number of new tokens to generate')
+    parser.add_argument('--repeat_penalty', type=float, default=1.0, help='Repetition penalty')
+    parser.add_argument('--do_sample', action='store_true', help='Whether to use sampling; use greedy decoding otherwise')
+    parser.add_argument('--num_beams', type=int, default=1, help='Number of beams for beam search')
+    parser.add_argument('--use_cache', action='store_true', help='Whether to use the past key/values attentions')
+    parser.add_argument('--top_k', type=int, default=50, help='The number of highest probability vocabulary tokens to keep for top-k filtering')
+
 
     args = parser.parse_args()
 
@@ -109,17 +119,27 @@ def main():
         wd=args.wd
     )
 
-    if args.mode.lower().strip() == 'train': 
+    mode = args.mode.lower().strip()
+    if mode == 'train': 
         run(doc_path=args.doc_path, 
             config=train_cfg, 
             preparation_fn=build_prep_fn(extra_w = args.extra_words, 
                                         red_flag_w = args.red_flag_words))
-    elif args.mode.lower().strip() == 'preview': 
+    elif mode == 'preview': 
         for i in args.doc_path: 
             doc = document(i, lambda t: t)
             print(f"""DOCUMENT EXAMPLES PAGE: 
                     {doc[args.page]}""")
-
+    elif mode == 'inference': 
+        interface(args.model_path, 
+                  max_new_tokens = args.max_new_tokens, 
+                  min_new_tokens = args.min_new_tokens, 
+                  repetition_penalty = args.repeat_penalty,
+                  do_sample = args.do_sample, 
+                  num_beams = args.num_beams, 
+                  use_cache = args.use_cache, 
+                  top_k = args.top_k)
+        
 if __name__ == "__main__":
     main()
 # EXAMPLE: 
