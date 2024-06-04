@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='lora_to_pdf',
+    name='pdf_to_lora',
     version='0.0',
     packages=find_packages(),
     install_requires=[
@@ -14,7 +14,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'lora_to_pdf=base:main'
+            'pdf_to_lora=.base:main'
         ]
     }
 )
