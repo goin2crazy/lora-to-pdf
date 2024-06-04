@@ -41,8 +41,8 @@ def run(doc_path,
         deleted EXTRA_WORDS chars: {extra_w_c}
         found RED_FLAGS {red_flag_c}
     """)
-    # model = train_nn(text_data, default_config)
-    # return model
+    model = train_nn(text_data, default_config)
+    return model
 
 
 def build_prep_fn(extra_w, red_flag_w):
@@ -63,7 +63,7 @@ def build_prep_fn(extra_w, red_flag_w):
 
     return fn
 
-if __name__ == "__main__":
+def main(): 
     parser = argparse.ArgumentParser(description="Process document and train neural network")
     
     parser.add_argument('--doc_path', type=str, nargs='+', default=[], help='Paths to the document')
@@ -117,7 +117,8 @@ if __name__ == "__main__":
             doc = document(i)
             print(f"""DOCUMENT EXAMPLES PAGE: 
                     {doc[args.page]}""")
-            
 
+if __name__ == "__main__":
+    main()
 # EXAMPLE: 
 # !python base.py --chunk_size 200 --model_preset "custom_model" --num_epoch 20 --batch_size 4

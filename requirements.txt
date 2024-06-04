@@ -1,0 +1,6 @@
+torch
+transformers 
+datasets 
+peft 
+transformers[torch]
+pymupdf
