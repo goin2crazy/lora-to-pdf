@@ -4,6 +4,7 @@ class TrainConfig:
     def __init__(self, 
                  chunk_size=150, 
                  model_preset="0x7o/nanoFialka-v1", 
+                 model_save_path: str = '', 
                  lora_params=None, 
                  training_params=None, 
                  # LORA PARAMS
@@ -21,7 +22,8 @@ class TrainConfig:
         self.chunk_size = chunk_size
 
         self.model_preset = model_preset
-        self.model_save_path = f"{self.model_preset.split(r'/')[-1]}-lora"
+
+        self.model_save_path = f"{self.model_preset.split(r'/')[-1]}-lora" if len(model_save_path) else model_save_path
 
         if l_modules is None:
             l_modules = ['lm_head', 'c_fc', 'c_proj', 'wte', 'wpe']

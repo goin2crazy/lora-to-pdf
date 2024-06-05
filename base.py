@@ -69,6 +69,8 @@ def main():
     parser = argparse.ArgumentParser(description="Process document and train neural network")
     
     parser.add_argument('--doc_path', type=str, nargs='+', default=[], help='Paths to the document')
+    parser.add_argument('--model_save_path', type=str, default='', help='Paths to save model [dir/model_name]')
+
     parser.add_argument('--mode', type=str, default='train', help='"preview" [For check the document] or "train" For Train LoRA')
     parser.add_argument('--page', type=int, default=0, help='Page for preview document')
 
@@ -107,6 +109,7 @@ def main():
     train_cfg = TrainConfig(
         chunk_size=args.chunk_size,
         model_preset=args.model_preset,
+        model_save_path=args.model_save_path, 
         rank=args.rank,
         l_alpha=args.l_alpha,
         l_dropout=args.l_dropout,
